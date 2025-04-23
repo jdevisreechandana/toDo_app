@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo List</title>
+    <style>
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        h2 {
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Todo App</h1>
+
+    <p><a href="{% url 'todo' %}">+ Create New Task</a></p>
+
+    <h2>Upcoming Tasks</h2>
+    {% if upcoming %}
+        <form method="POST" action="{% url 'update_tasks' %}">
+            {% csrf_token %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Done</th>
+                        <th>Task</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for todo in upcoming %}
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="completed_tasks" value="{{ todo.id }}">
+                        </td>
+                        <td>{{ todo.task }}</td>
+                        <td>{{ todo.description }}</td>
+                        <td>
+                            <a href="{% url 'edit_task' todo.id %}">Edit</a> |
+                            <a href="{% url 'delete_task' todo.id %}">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button type="submit">Mark Completed</button>
+        </form>
+    {% else %}
+        <p>No upcoming tasks.</p>
+    {% endif %}
+
+    <h2>Completed Tasks</h2>
+    {% if completed %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for todo in completed %}
+                <tr>
+                    <td>{{ todo.task }}</td>
+                    <td>{{ todo.description }}</td>
+                    <td>
+                        <a href="{% url 'edit_task' todo.id %}">Edit</a> |
+                        <a href="{% url 'delete_task' todo.id %}">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No completed tasks yet.</p>
+    {% endif %}
+</body>
+</html>

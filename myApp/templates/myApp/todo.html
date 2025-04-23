@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Todo App</title>
+    <style>
+    body {
+        font-family: Arial;
+        background-color: #f4f6f9;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h1.title {
+        text-align: center;
+        color: #333;
+    }
+
+    form {
+        background-color: #fff;
+        padding: 25px;
+        margin: 0 auto;
+        max-width: 500px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    form div {
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    input[type="checkbox"] {
+        margin-top: 5px;
+    }
+
+    button {
+        background-color: blue;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+        width: 100%;
+    }
+
+    button:hover {
+        background-color: darkblue;
+    }
+</style>
+
+</head>
+<body>
+<h1 class ="title">Todo List</h1>
+<form method="POST" >
+            {% csrf_token %}
+            <div>
+                <label for="task">Task:</label>
+                <input type="text" id="task" name="task" required>
+            </div>
+            <div>
+                <label for="description">Description:</label>
+                <textarea id="description" name="description"  required></textarea>
+            </div>
+            <div>
+                <label for="completed">Completed:</label>
+                <input type="checkbox" id="completed" name="completed" >
+            </div>
+    <button type="submit" >Submit</button>
+        </form>
+</body>
+</html>
